@@ -43,7 +43,7 @@ Automatic reset of the MAX30100 sensor if readings become unresponsive, ensuring
 | Component | Function |
 |----------|----------|
 | **ESP32 Dev Module** | Microcontroller + Wi-Fi |
-| **MAX30100 / MAX30102** | Pulse oximeter (HR + SpO₂) |
+| **MAX30100** | Pulse oximeter (HR + SpO₂) |
 | **AD8232 ECG Module** | ECG waveform measurement |
 | **MLX90614** | Non-contact temperature sensor |
 | **ST7789 240×320 TFT** | Local display interface |
@@ -51,26 +51,3 @@ Automatic reset of the MAX30100 sensor if readings become unresponsive, ensuring
 
 ---
 
-## 🔧 Firmware Installation Guide
-
-### 1️⃣ Arduino IDE Setup
-Install the **ESP32 board package** in the Arduino Board Manager.
-
-### 2️⃣ Required Libraries  
-Install via **Library Manager**:
-
-- `BlynkSimpleEsp32`  
-- `MAX30100_PulseOximeter`  
-- `Adafruit GFX`  
-- `Adafruit MLX90614`  
-- `Adafruit ST7789`
-
-### 3️⃣ Blynk Configuration  
-Create a new project in **Blynk (legacy)** and replace the credentials in:
-
-`Code/Biometric_Health_Monitor/Biometric_Health_Monitor.ino`
-
-```cpp
-#define BLYNK_AUTH_TOKEN "YOUR_TOKEN"
-char ssid[] = "YOUR_WIFI";
-char pass[] = "YOUR_PASS";
