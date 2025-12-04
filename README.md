@@ -1,4 +1,4 @@
-# 📡 Biometric Health Data Measurement with Live Broadcast  
+# 📡 Biometric Health Data Measurement with Live Broadcast 
 ### 🎓 Diploma Thesis – Konstantinos Aslanidis  
 International Hellenic University (IHU)
 
