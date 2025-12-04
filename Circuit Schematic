@@ -1,0 +1,72 @@
+## 🧩 Circuit Schematic (Breadboard Layout) — **As specified in the thesis**
+
+The table below follows the wiring described in the thesis (Biometric Health Data Measurement with Live Broadcast). Citations to the thesis are included for each device.
+
+### 📺 ST7789 TFT Display (ST7789, 240×320 / 2.0")
+| TFT Pin | ESP32 Pin | Notes |
+|--------:|:---------:|:-----|
+| VCC     | 3.3V      | Power (3.3V). :contentReference[oaicite:6]{index=6} |
+| GND     | GND       | Ground. :contentReference[oaicite:7]{index=7} |
+| SCL (SCK) | GPIO 18 | SPI Clock. :contentReference[oaicite:8]{index=8} |
+| SDA (MOSI)| GPIO 23 | SPI MOSI / Data. :contentReference[oaicite:9]{index=9} |
+| RES     | GPIO 4    | Reset. :contentReference[oaicite:10]{index=10} |
+| DC      | GPIO 2    | Data/Command. :contentReference[oaicite:11]{index=11} |
+| CS      | GPIO 5    | Chip Select. :contentReference[oaicite:12]{index=12} |
+| BLK     | 3.3V (or via resistor/driver) | Backlight (depends on module). :contentReference[oaicite:13]{index=13} |
+
+---
+
+### ❤️ MAX30100 (Pulse Oximeter)
+| MAX30100 Pin | ESP32 Pin | Notes |
+|-------------:|:---------:|:-----|
+| VIN          | 3.3V      | Power (thesis uses 3.3V). :contentReference[oaicite:14]{index=14} |
+| GND          | GND       | Ground. :contentReference[oaicite:15]{index=15} |
+| SDA          | GPIO 21   | I2C SDA shared bus. :contentReference[oaicite:16]{index=16} |
+| SCL          | GPIO 22   | I2C SCL shared bus. :contentReference[oaicite:17]{index=17} |
+| INT          | (Not used) | Optional interrupt — leave disconnected unless used. :contentReference[oaicite:18]{index=18} |
+
+---
+
+### 🌡️ MLX90614 (IR Temperature)
+| MLX90614 Pin | ESP32 Pin | Notes |
+|-------------:|:---------:|:-----|
+| VDD / VCC    | **5V** *or* **3.3V** | Thesis wiring uses **5V**; module is specified 3–5V (check your breakout). If the module's datasheet/breakout requires 5V, use 5V. If the breakout supports 3.3V I2C, prefer **3.3V** to keep I2C levels consistent with ESP32. :contentReference[oaicite:19]{index=19} |
+| GND          | GND       | Ground. :contentReference[oaicite:20]{index=20} |
+| SDA          | GPIO 21   | I2C SDA (shared with MAX30100). :contentReference[oaicite:21]{index=21} |
+| SCL          | GPIO 22   | I2C SCL (shared). :contentReference[oaicite:22]{index=22} |
+
+**Important:** The thesis lists **VDD → 5V** for the MLX90614 wiring. That is acceptable for many GY-906 breakouts, but check your exact breakout’s datasheet. If your breakout’s logic lines are NOT 3.3V-tolerant when VDD=5V, either use 3.3V VDD or add an I2C level shifter. :contentReference[oaicite:23]{index=23}
+
+---
+
+### 📈 AD8232 (ECG)
+| AD8232 Pin | ESP32 Pin | Notes |
+|-----------:|:---------:|:-----|
+| VDD        | 3.3V      | Power. :contentReference[oaicite:24]{index=24} |
+| GND        | GND       | Ground. :contentReference[oaicite:25]{index=25} |
+| OUT        | GPIO 34   | Analog ECG signal (ADC). :contentReference[oaicite:26]{index=26} |
+| LO+        | GPIO 33   | Lead-off + (optional/useful). :contentReference[oaicite:27]{index=27} |
+| LO-        | GPIO 32   | Lead-off - (optional/useful). :contentReference[oaicite:28]{index=28} |
+
+---
+
+### 🔔 Buzzer (Mini Piezo)
+| Buzzer Pin | ESP32 Pin | Notes |
+|-----------:|:---------:|:-----|
+| IN (+)     | GPIO 13   | Buzzer input (thesis uses pin 13). :contentReference[oaicite:29]{index=29} |
+| GND        | GND       | Ground. :contentReference[oaicite:30]{index=30} |
+
+---
+
+### 🔌 Power & Other Notes
+- **All grounds must be common** (tie module GNDs to ESP32 GND). :contentReference[oaicite:31]{index=31}  
+- **I2C bus:** SDA = **GPIO 21**, SCL = **GPIO 22** (shared by MAX30100 and MLX90614).   
+- **10µF capacitor** between **EN** and **GND** to help automatic USB upload/reset. :contentReference[oaicite:33]{index=33}
+
+---
+
+## Final notes & action items
+1. **MLX90614 power:** confirm your exact MLX90614 breakout module. If it explicitly accepts 3.3V on VDD and the I²C lines are 3.3V, **use 3.3V** to avoid level mismatches. If the breakout expects 5V and uses level shifting for I²C, 5V per thesis is fine — just confirm with the breakout datasheet. (thesis shows VDD→5V). :contentReference[oaicite:34]{index=34}  
+2. All other pin mappings in the README schematic **match the thesis** (MAX30100, AD8232, ST7789, buzzer, capacitor). 
+
+---
