@@ -1,4 +1,4 @@
-/**************************************************************
+/***************************************************************
  * THESIS PROJECT: Biometric Health Data Measurement with Live Broadcast
  * Author: Konstantinos Aslanidis
  * * This file contains the complete firmware for the ESP32 to interface
